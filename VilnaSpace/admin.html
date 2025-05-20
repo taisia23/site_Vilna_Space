@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Адмін панель | Vilna Space</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Адмін панель Vilna Space</h1>
+    <nav>
+      <a href="index.html">Головна</a>
+      <a href="desserts.html">Десерти</a>
+      <a href="production.html">Виробництво</a>
+      <a href="locations.html">Наші заклади</a>
+      <a href="login.html">Вихід</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Управління десертами</h2>
+
+    <form id="dessertForm">
+      <input type="hidden" id="dessertIndex" value="" />
+      <label for="name">Назва десерту:</label><br />
+      <input type="text" id="name" required /><br /><br />
+
+      <label for="description">Опис:</label><br />
+      <textarea id="description" rows="3" required></textarea><br /><br />
+
+      <label for="image">URL зображення:</label><br />
+      <input type="url" id="image" placeholder="https://example.com/image.jpg" required /><br /><br />
+
+      <button type="submit" class="btn-primary">Зберегти</button>
+      <button type="button" id="cancelEdit" style="display:none; margin-left:1rem;">Скасувати</button>
+    </form>
+
+    <h3>Поточні десерти:</h3>
+    <div id="dessertsList"></div>
+  </main>
+
+  <footer>
+    © 2025 Vilna Space. Всі права захищені.
+  </footer>
+
+  <script>
+    
+    if(localStorage.getItem('userRole') !== 'admin') {
+      alert('Доступ заборонено. Будь ласка, увійдіть як адміністратор.');
+      window.location.href = 'login.html';
+    }
+
+    const dessertForm = document.getElementById('dessertForm');
+    const dessertsList = document.getElementById('dessertsList');
+    const dessertIndexInput = document.getElementById('dessertIndex');
+    const nameInput = document.getElementById('name');
+    const descInput = document.getElementById('description');
+    const imageInput = document.getElementById('image');
+    const cancelEditBtn = document.getElementById('cancelEdit');
+
+    let desserts = JSON.parse(localStorage.getItem('desserts')) || [];
+
+    function renderDesserts() {
+      dessertsList.innerHTML = '';
+      if (desserts.length === 0) {
+        dessertsList.textContent = 'Десертів поки немає.';
+        return;
+      }
+      desserts.forEach((dessert, index) => {
+        const div = document.createElement('div');
+        div.classList.add('card');
+        div.style.marginBottom = '1rem';
+
+        div.innerHTML = `
+          <img src="${dessert.image}" alt="${dessert.name}" class="img-small" style="max-width:100px; float:left; margin-right:1rem;" />
+          <h4>${dessert.name}</h4>
+          <p>${dessert.description}</p>
+          <button data-index="${index}" class="editBtn btn-primary" style="margin-right:0.5rem;">Редагувати</button>
+          <button data-index="${index}" class="deleteBtn btn-primary" style="background-color:#8b2e2e;">Видалити</button>
+          <div style="clear:both;"></div>
+        `;
+
+        dessertsList.appendChild(div);
+      });
+    }
+
+    dessertForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const dessertData = {
+        name: nameInput.value.trim(),
+        description: descInput.value.trim(),
+        image: imageInput.value.trim()
+      };
+
+      const index = dessertIndexInput.value;
+      if(index === '') {
+       
+        desserts.push(dessertData);
+      } else {
+       
+        desserts[index] = dessertData;
+      }
+
+      localStorage.setItem('desserts', JSON.stringify(desserts));
+      renderDesserts();
+      dessertForm.reset();
+      dessertIndexInput.value = '';
+      cancelEditBtn.style.display = 'none';
+    });
+
+    dessertsList.addEventListener('click', (e) => {
+      if (e.target.classList.contains('editBtn')) {
+        const idx = e.target.getAttribute('data-index');
+        const dessert = desserts[idx];
+        dessertIndexInput.value = idx;
+        nameInput.value = dessert.name;
+        descInput.value = dessert.description;
+        imageInput.value = dessert.image;
+        cancelEditBtn.style.display = 'inline-block';
+      }
+      if (e.target.classList.contains('deleteBtn')) {
+        const idx = e.target.getAttribute('data-index');
+        if (confirm('Видалити цей десерт?')) {
+          desserts.splice(idx, 1);
+          localStorage.setItem('desserts', JSON.stringify(desserts));
+          renderDesserts();
+        }
+      }
+    });
+
+    cancelEditBtn.addEventListener('click', () => {
+      dessertForm.reset();
+      dessertIndexInput.value = '';
+      cancelEditBtn.style.display = 'none';
+    });
+
+   
+    renderDesserts();
+  </script>
+</body>
+</html>

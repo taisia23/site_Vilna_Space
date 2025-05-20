@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Реєстрація - Vilna Space</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="auth-container">
+    <h1>Реєстрація</h1>
+    <form id="registerForm">
+      <label for="username">Ім'я користувача</label>
+      <input type="text" id="username" name="username" required />
+      
+      <label for="password">Пароль</label>
+      <input type="password" id="password" name="password" required />
+      
+      <button type="submit">Зареєструватись</button>
+    </form>
+    <p>Вже є акаунт? <a href="login.html">Увійти</a></p>
+  </div>
+
+<script src="js/main.js"></script>
+<script>
+  const form = document.getElementById('registerForm');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const username = form.username.value.trim();
+    const password = form.password.value;
+    if (username && password) {
+      await registerUser(username, password);
+    }
+  });
+</script>
+</body>
+</html>

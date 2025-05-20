@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Вхід - Vilna Space</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="auth-container">
+    <h1>Вхід</h1>
+    <form id="loginForm">
+      <label for="username">Ім'я користувача</label>
+      <input type="text" id="username" name="username" required />
+      
+      <label for="password">Пароль</label>
+      <input type="password" id="password" name="password" required />
+      
+      <button type="submit">Увійти</button>
+    </form>
+    <p>Немає акаунту? <a href="register.html">Зареєструватись</a></p>
+  </div>
+
+<script src="js/main.js"></script>
+<script>
+  const form = document.getElementById('loginForm');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const username = form.username.value.trim();
+    const password = form.password.value;
+    if (username && password) {
+      await loginUser(username, password);
+    }
+  });
+</script>
+</body>
+</html>

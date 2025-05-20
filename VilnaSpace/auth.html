@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Вхід та реєстрація | Vilna Space</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="auth.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <h1>Vilna Space</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Головна</a></li>
+          <li><a href="coffee.html">Про каву</a></li>
+          <li><a href="desserts.html">Десерти</a></li>
+          <li><a href="locations.html">Наші заклади</a></li>
+          <li><a href="production.html">Виробництво</a></li>
+          <li><a href="map.html">Карта клієнта</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container auth-container">
+    <div class="form-box">
+      <h2>Вхід</h2>
+      <form id="login-form">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" required>
+
+        <label for="login-password">Пароль</label>
+        <input type="password" id="login-password" required>
+
+        <button type="submit">Увійти</button>
+      </form>
+    </div>
+
+    <div class="form-box">
+      <h2>Реєстрація</h2>
+      <form id="register-form">
+        <label for="register-email">Email</label>
+        <input type="email" id="register-email" required>
+
+        <label for="register-password">Пароль</label>
+        <input type="password" id="register-password" required>
+
+        <button type="submit">Зареєструватись</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Vilna Space. Всі права захищені.</p>
+    </div>
+  </footer>
+</body>
+</html>

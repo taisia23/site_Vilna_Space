@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vilna Space - Вхід / Реєстрація</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="login.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Vilna Space</h1>
+    <nav>
+      <a href="index.html">Головна</a>
+      <a href="coffee.html">Про каву</a>
+      <a href="deserts.html">Десерти</a>
+      <a href="production.html">Виробництво</a>
+      <a href="locations.html">Наші заклади</a>
+      <a href="map.html">Карта клієнтів</a>
+      <a href="login.html" class="active">Вхід / Реєстрація</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Вхід або реєстрація</h2>
+    <form id="authForm">
+      <input type="text" id="username" placeholder="Ім'я користувача" required />
+      <input type="password" id="password" placeholder="Пароль" required />
+      <button type="submit" class="btn-primary">Увійти / Зареєструватися</button>
+    </form>
+    <p id="authMessage"></p>
+  </main>
+
+  <footer>
+    &copy; 2025 Vilna Space. Всі права захищені.
+  </footer>
+</body>
+</html>
